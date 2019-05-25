@@ -1,11 +1,7 @@
-doctype html
-html(lang="en")
-    head
-        title Flash Cards
-    body
-        header
-            h1 Flash Cards
-        section#contentfooter
+extends layout.pug
+
+block content
+    section#content
         if names
             table
                 tr
@@ -21,11 +17,11 @@ html(lang="en")
                             td= name.last
                         else
                             td= "N/A"
-        h2= prompt
-        if hint
-            p
-                i Hint: #{hint}
-        else
-            p (There is no hint available)
-    footer
-        p An app to help you study
+    h2= prompt
+    if hint
+        p
+            i Hint: #{hint}
+    else
+        p (There is no hint available)
+
+    
