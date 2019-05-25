@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+const bodyParser = require("body-parser");
+
 const names = [
   { first: null, last: "Einstein" },
   { first: "Marko", last: "Delgadillo" },
@@ -10,6 +12,8 @@ const names = [
 ];
 
 app.set("view engine", "pug");
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   // the parameter to .render is the name of the template
@@ -37,7 +41,7 @@ app.get("/hello", (req, res) => {
 
 app.post("/hello", (req, res) => {
   console.dir(req.body);
-  res.render("hello");
+  res.render("hello", { name: req.body.username });
 });
 
 app.get("/sandbox", (req, res) => {
