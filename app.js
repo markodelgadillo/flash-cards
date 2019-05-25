@@ -31,8 +31,14 @@ app.get("/cards", (req, res) => {
   res.render("card");
 });
 
+app.get("/hello", (req, res) => {
+  res.render("hello");
+});
+
+app.post("/hello", (req, res) => {});
+
 app.get("/sandbox", (req, res) => {
-  res.render();
+  res.render("sandbox");
 });
 
 app.listen(1717, () => {
