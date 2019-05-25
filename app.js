@@ -35,7 +35,10 @@ app.get("/hello", (req, res) => {
   res.render("hello");
 });
 
-app.post("/hello", (req, res) => {});
+app.post("/hello", (req, res) => {
+  console.dir(req.body);
+  res.render("hello");
+});
 
 app.get("/sandbox", (req, res) => {
   res.render("sandbox");
