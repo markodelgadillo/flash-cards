@@ -1,0 +1,31 @@
+doctype html
+html(lang="en")
+    head
+        title Flash Cards
+    body
+        header
+            h1 Flash Cards
+        section#contentfooter
+        if names
+            table
+                tr
+                    th First
+                    th Last
+                each name in names
+                    tr
+                        if name.first
+                            td= name.first
+                        else
+                            td= "N/A"
+                        if name.last
+                            td= name.last
+                        else
+                            td= "N/A"
+        h2= prompt
+        if hint
+            p
+                i Hint: #{hint}
+        else
+            p (There is no hint available)
+    footer
+        p An app to help you study

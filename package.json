@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/markodelgadillo/flash-cards#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "pug": "^2.0.3"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
