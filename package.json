@@ -1,0 +1,26 @@
+{
+  "name": "flash-cards",
+  "version": "1.0.0",
+  "description": "A flash cards express app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markodelgadillo/flash-cards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markodelgadillo/flash-cards/issues"
+  },
+  "homepage": "https://github.com/markodelgadillo/flash-cards#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}
