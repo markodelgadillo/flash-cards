@@ -62,11 +62,7 @@ app.post("/hello", (req, res) => {
   }
 });
 
-app.post("/", (req, res) => {
-  res.redirect("/goodbye");
-});
-
-app.get("/goodbye", (req, res) => {
+app.post("/goodbye", (req, res) => {
   res.clearCookie("username");
   res.redirect("/hello");
 });
