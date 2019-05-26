@@ -18,8 +18,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  // the parameter to .render is the name of the template
-  res.render("index");
+  const name = req.cookies.username;
+  if (name && /^[a-zA-Z]+$/.test(name)) {
+    // the parameter to .render is the name of the template
+    res.render("index", { name });
+  } else {
+    res.redirect("/hello");
+  }
 });
 
 // // routed to the /cards endpoint
@@ -38,12 +43,23 @@ app.get("/cards", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.render("hello", { name: req.cookies.username });
+  if (req.cookies.username) {
+    res.redirect("/");
+  } else {
+    res.render("hello");
+  }
 });
 
 app.post("/hello", (req, res) => {
-  res.cookie("username", req.body.username);
-  res.render("hello", { name: req.body.username });
+  if (/^[a-zA-Z]+$/.test(req.body.username)) {
+    res.cookie("username", req.body.username);
+    res.redirect("/");
+  } else {
+    res.render("nameError");
+    // app.post("nameError", (req, res) => {
+    //   res.redirect("/hello");
+    // });
+  }
 });
 
 app.get("/sandbox", (req, res) => {
