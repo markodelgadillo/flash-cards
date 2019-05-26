@@ -40,7 +40,10 @@ app.get("/hello", (req, res) => {
 });
 
 app.post("/hello", (req, res) => {
-  console.dir(req.body);
+  res.cookie("username", req.body.username, {
+    expires: new Date(Date.now() + 30000),
+    path: "/hello"
+  });
   res.render("hello", { name: req.body.username });
 });
 
