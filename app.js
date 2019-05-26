@@ -15,6 +15,7 @@ const names = [
 app.set("view engine", "pug");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   // the parameter to .render is the name of the template
@@ -37,14 +38,11 @@ app.get("/cards", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.render("hello");
+  res.render("hello", { name: req.cookies.username });
 });
 
 app.post("/hello", (req, res) => {
-  res.cookie("username", req.body.username, {
-    expires: new Date(Date.now() + 30000),
-    path: "/hello"
-  });
+  res.cookie("username", req.body.username);
   res.render("hello", { name: req.body.username });
 });
 
