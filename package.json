@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/markodelgadillo/flash-cards#readme",
   "dependencies": {
+<<<<<<< Updated upstream
     "body-parser": "^1.19.0",
+=======
+    "cookie-parser": "^1.4.4",
+>>>>>>> Stashed changes
     "express": "^4.15.2",
     "pug": "^2.0.3"
   },
