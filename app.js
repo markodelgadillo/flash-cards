@@ -18,15 +18,8 @@ app.use(cookieParser());
 app.set("view engine", "pug");
 
 app.use((req, res, next) => {
-  console.log("Hello");
-  const err = new Error("Oh No!");
-  err.status = 500;
-  next(err);
-});
-
-app.use((req, res, next) => {
   console.log("world!");
-  next(err);
+  next();
 });
 
 app.get("/", (req, res) => {
@@ -78,6 +71,12 @@ app.post("/goodbye", (req, res) => {
 
 app.get("/sandbox", (req, res) => {
   res.render("sandbox");
+});
+
+app.use((req, res, next) => {
+  const err = new Error("Not Found!");
+  err.status = 404;
+  next(err);
 });
 
 app.use((err, req, res, next) => {
