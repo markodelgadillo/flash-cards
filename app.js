@@ -5,17 +5,22 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
-const names = [
-  { first: null, last: "Einstein" },
-  { first: "Marko", last: "Delgadillo" },
-  { first: "Breadna", last: "Pancakes" },
-  { first: "Karen", last: "Dahmer" }
-];
-
-app.set("view engine", "pug");
+// const names = [
+//   { first: null, last: "Einstein" },
+//   { first: "Marko", last: "Delgadillo" },
+//   { first: "Breadna", last: "Pancakes" },
+//   { first: "Karen", last: "Dahmer" }
+// ];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.set("view engine", "pug");
+
+app.use((req, res, next) => {
+  console.log("world!");
+  next();
+});
 
 app.get("/", (req, res) => {
   const name = req.cookies.username;
@@ -56,9 +61,6 @@ app.post("/hello", (req, res) => {
     res.redirect("/");
   } else {
     res.render("nameError");
-    // app.post("nameError", (req, res) => {
-    //   res.redirect("/hello");
-    // });
   }
 });
 
@@ -69,6 +71,18 @@ app.post("/goodbye", (req, res) => {
 
 app.get("/sandbox", (req, res) => {
   res.render("sandbox");
+});
+
+app.use((req, res, next) => {
+  const err = new Error("Not Found!");
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  res.status(err.status);
+  res.render("error");
 });
 
 app.listen(1717, () => {
