@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const { data } = require("../data/flashcardData.json");
 const { cards } = data;
+var id;
+
+router.get("/", (req, res) => {
+  console.log(req.baseUrl);
+  const cardTotal = cards.length;
+  id = Math.floor(Math.random() * cardTotal);
+  res.redirect(`${req.baseUrl}/${id}?side=question`);
+});
 
 // using res.locals to set the value of the variable in the template file
 // since all routers in this file are for /cards, the get parameter can be changed from '/cards' to just '/'
@@ -14,7 +22,8 @@ const { cards } = data;
 // -----------------------------------------------------
 
 // using '/:id' will grab the id from the URL and use that to display the corresponding data from the JSON
-router.get("/:id", (req, res) => {
+
+router.get(`/:id`, (req, res) => {
   const { side } = req.query;
   const { id } = req.params;
   const text = cards[id][side];
