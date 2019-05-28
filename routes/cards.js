@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
   console.log(req.baseUrl);
   const cardTotal = cards.length;
   id = Math.floor(Math.random() * cardTotal);
-  res.redirect(`${req.baseUrl}/${id}?side=question`);
+  res.redirect(`${req.baseUrl}/${id}`);
 });
 
 // using res.locals to set the value of the variable in the template file
