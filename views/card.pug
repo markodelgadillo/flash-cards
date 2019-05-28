@@ -17,11 +17,17 @@ block content
                             td= name.last
                         else
                             td= "N/A"
-    h2= prompt
+    h2= text
     if hint
         p
             i Hint: #{hint}
+        p
+            a(href=`${flipUrl}`)
+                i Answer
     else
-        p (There is no hint available)
+        p
+            a(href=`${flipUrl}`)
+                i Question
+
 
     

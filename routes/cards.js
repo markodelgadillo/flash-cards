@@ -15,10 +15,21 @@ const { cards } = data;
 
 // using '/:id' will grab the id from the URL and use that to display the corresponding data from the JSON
 router.get("/:id", (req, res) => {
-  res.render("card", {
-    prompt: cards[req.params.id].question,
-    hint: cards[req.params.id].hint
-  });
+  const { side } = req.query;
+  const { id } = req.params;
+  const text = cards[id][side];
+  const { hint } = cards[id];
+  let flipUrl;
+  let templateData;
+
+  if (side === "answer") {
+    flipUrl = req.baseUrl + req.url.replace(/answer/gi, "question");
+    templateData = { text, side, flipUrl };
+  } else {
+    flipUrl = req.baseUrl + req.url.replace(/question/gi, "answer");
+    templateData = { text, hint, side, flipUrl };
+  }
+  res.render("card", templateData);
 });
 
 module.exports = router;
