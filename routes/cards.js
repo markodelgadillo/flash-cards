@@ -23,8 +23,12 @@ router.get("/", (req, res) => {
 
 // using '/:id' will grab the id from the URL and use that to display the corresponding data from the JSON
 
-router.get(`/:id`, (req, res) => {
-  const { side } = req.query;
+router.get("/:id", (req, res) => {
+  if (!req.query.side) {
+    side = "question";
+  } else {
+    const { side } = req.query;
+  }
   const { id } = req.params;
   const text = cards[id][side];
   const { hint } = cards[id];
