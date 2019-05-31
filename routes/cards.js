@@ -2,12 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { data } = require("../data/flashcardData.json");
 const { cards } = data;
-var id;
 
 router.get("/", (req, res) => {
-  console.log(req.baseUrl);
   const cardTotal = cards.length;
-  id = Math.floor(Math.random() * cardTotal);
+  const id = Math.floor(Math.random() * cardTotal);
   res.redirect(`${req.baseUrl}/${id}`);
 });
 
@@ -24,20 +22,20 @@ router.get("/", (req, res) => {
 // using '/:id' will grab the id from the URL and use that to display the corresponding data from the JSON
 
 router.get("/:id", (req, res) => {
-  if (!req.query.side) {
-    side = "question";
-  } else {
-    const { side } = req.query;
-  }
+  const { side } = req.query;
   const { id } = req.params;
+  const regex = RegExp("\bquestion\b.*\banswer\b");
+  if (!side) {
+    res.redirect(`/cards/${id}?side=question`);
+  }
   const text = cards[id][side];
+  const question = cards[id].question;
   const { hint } = cards[id];
   let flipUrl;
   let templateData;
-
   if (side === "answer") {
     flipUrl = req.baseUrl + req.url.replace(/answer/gi, "question");
-    templateData = { text, side, flipUrl };
+    templateData = { text, side, flipUrl, question };
   } else {
     flipUrl = req.baseUrl + req.url.replace(/question/gi, "answer");
     templateData = { text, hint, side, flipUrl };

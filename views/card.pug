@@ -24,10 +24,16 @@ block content
         p
             a(href=`${flipUrl}`)
                 i Answer
+                br
+                a(href='/cards') Next Card
     else
+        p
+            i Q: #{question}
         p
             a(href=`${flipUrl}`)
                 i Question
+                br
+                a(href='/cards') Next Card
 
 
     
