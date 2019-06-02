@@ -22,10 +22,13 @@ router.get("/", (req, res) => {
 // using '/:id' will grab the id from the URL and use that to display the corresponding data from the JSON
 
 router.get("/:id", (req, res) => {
+  const name = req.cookies.username;
   const { side } = req.query;
   const { id } = req.params;
-  const regex = RegExp("\bquestion\b.*\banswer\b");
-  if (!side) {
+  const regex = RegExp(/^.*(answer|question).*$/gm);
+  const check = regex.test(side);
+
+  if (!side || !check) {
     res.redirect(`/cards/${id}?side=question`);
   }
   const text = cards[id][side];
@@ -35,10 +38,10 @@ router.get("/:id", (req, res) => {
   let templateData;
   if (side === "answer") {
     flipUrl = req.baseUrl + req.url.replace(/answer/gi, "question");
-    templateData = { text, side, flipUrl, question };
+    templateData = { text, side, flipUrl, question, name };
   } else {
     flipUrl = req.baseUrl + req.url.replace(/question/gi, "answer");
-    templateData = { text, hint, side, flipUrl };
+    templateData = { text, hint, side, flipUrl, name };
   }
   res.render("card", templateData);
 });
